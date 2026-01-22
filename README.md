@@ -141,11 +141,7 @@ Contributions are welcome! See [ADDING-VISUALIZATIONS.md](./docs/ADDING-VISUALIZ
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Inspired by [JavaScript Visualizer 9000](https://www.jsv9000.app/)
 - Built for visual learners everywhere
