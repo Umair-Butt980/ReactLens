@@ -6,16 +6,16 @@ ReactLens is a visual learning platform built with Next.js 16 that teaches JavaS
 
 ## Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
-| **Next.js 16** | React framework with App Router |
-| **React 19** | UI library |
-| **TypeScript** | Type safety |
-| **Tailwind CSS v4** | Styling |
-| **Framer Motion** | Animations |
-| **Shiki** | Code syntax highlighting |
-| **Zustand** | State management (for complex visualizations) |
-| **Lucide React** | Icons |
+| Technology          | Purpose                                       |
+| ------------------- | --------------------------------------------- |
+| **Next.js 16**      | React framework with App Router               |
+| **React 19**        | UI library                                    |
+| **TypeScript**      | Type safety                                   |
+| **Tailwind CSS v4** | Styling                                       |
+| **Framer Motion**   | Animations                                    |
+| **Shiki**           | Code syntax highlighting                      |
+| **Zustand**         | State management (for complex visualizations) |
+| **Lucide React**    | Icons                                         |
 
 ## Application Structure
 
@@ -127,12 +127,15 @@ Each concept visualization page follows a three-section layout:
 ## State Management
 
 ### Local State (useState)
+
 Used for most visualization pages:
+
 - `currentStep` - Current animation step
 - `isPlaying` - Auto-play status
 - `speed` - Playback speed (0.5x, 1x, 1.5x, 2x)
 
 ### Zustand (for complex visualizations)
+
 Available for visualizations that need shared state across components or persistent state.
 
 ## Animation System
@@ -150,12 +153,14 @@ All animations use Framer Motion with predefined variants in `lib/types/animatio
 The theme is defined in `app/globals.css` with CSS custom properties:
 
 ### Colors
+
 - **Primary**: Purple (#8B5CF6)
 - **Secondary**: Cyan (#06B6D4)
 - **Accent**: Coral (#F97316)
 - **Background**: Deep Navy (#0F172A)
 
 ### Utility Classes
+
 - `.glass` - Glassmorphism effect
 - `.glow-purple`, `.glow-cyan`, etc. - Glow effects
 - `.gradient-*` - Gradient backgrounds

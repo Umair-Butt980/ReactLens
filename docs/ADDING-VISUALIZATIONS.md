@@ -39,6 +39,7 @@ export interface ClosureStep {
 ```
 
 Export from `lib/types/index.ts`:
+
 ```typescript
 export * from './closure.types';
 ```
@@ -72,9 +73,7 @@ export const closureSteps: ClosureStep[] = [
     explanation: 'We define a function called outer...',
     highlightedLines: [1, 2, 3, 4, 5, 6, 7, 8],
     state: {
-      scopes: [
-        { id: 'global', name: 'Global Scope', variables: [], color: '#8B5CF6' }
-      ],
+      scopes: [{ id: 'global', name: 'Global Scope', variables: [], color: '#8B5CF6' }],
       currentScope: 'global',
       accessedVariables: [],
     },
@@ -148,6 +147,7 @@ export function ClosureVisual({ state, className }: ClosureVisualProps) {
 ```
 
 Export from `components/visualizations/javascript/index.ts`:
+
 ```typescript
 export { ClosureVisual } from './closure-visual';
 ```

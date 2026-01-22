@@ -8,16 +8,16 @@
 // lib/types/concept.types.ts
 
 interface Topic {
-  id: string;                                    // Unique identifier
-  title: string;                                 // Display title
-  slug: string;                                  // URL slug
-  description: string;                           // Brief description
-  category: 'javascript' | 'react' | 'nextjs';   // Category
+  id: string; // Unique identifier
+  title: string; // Display title
+  slug: string; // URL slug
+  description: string; // Brief description
+  category: 'javascript' | 'react' | 'nextjs'; // Category
   difficulty: 'beginner' | 'intermediate' | 'advanced';
-  estimatedTime: number;                         // Minutes to complete
-  prerequisites?: string[];                      // Required topic IDs
-  icon?: string;                                 // Lucide icon name
-  color?: string;                                // Theme color (hex)
+  estimatedTime: number; // Minutes to complete
+  prerequisites?: string[]; // Required topic IDs
+  icon?: string; // Lucide icon name
+  color?: string; // Theme color (hex)
 }
 
 interface TopicCategory {
@@ -35,12 +35,12 @@ interface TopicCategory {
 // lib/types/concept.types.ts
 
 interface ConceptStep {
-  id: string;                           // Unique step ID
-  title: string;                        // Step title
-  explanation: string;                  // Detailed explanation
-  highlightedLines: number[];           // Code lines to highlight
+  id: string; // Unique step ID
+  title: string; // Step title
+  explanation: string; // Detailed explanation
+  highlightedLines: number[]; // Code lines to highlight
   animationState: Record<string, unknown>; // State for visualization
-  duration: number;                     // Auto-play duration (ms)
+  duration: number; // Auto-play duration (ms)
 }
 
 interface ConceptPageData {
@@ -51,12 +51,12 @@ interface ConceptPageData {
   category: 'javascript' | 'react' | 'nextjs';
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   estimatedTime: number;
-  codeExample: string;                  // Full code snippet
-  steps: ConceptStep[];                 // All animation steps
-  totalDuration: number;                // Total time (ms)
-  keyTakeaways: string[];               // Summary points
-  nextTopic?: string;                   // Next concept slug
-  prevTopic?: string;                   // Previous concept slug
+  codeExample: string; // Full code snippet
+  steps: ConceptStep[]; // All animation steps
+  totalDuration: number; // Total time (ms)
+  keyTakeaways: string[]; // Summary points
+  nextTopic?: string; // Next concept slug
+  prevTopic?: string; // Previous concept slug
 }
 ```
 
@@ -107,7 +107,7 @@ interface QueueItem {
   id: string;
   name: string;
   type: 'callback' | 'microtask';
-  source: string;  // e.g., "setTimeout", "Promise"
+  source: string; // e.g., "setTimeout", "Promise"
 }
 
 interface WebApiItem {
@@ -115,7 +115,7 @@ interface WebApiItem {
   name: string;
   type: 'timer' | 'fetch' | 'event' | 'promise';
   delay?: number;
-  progress?: number;  // 0-100 for progress animation
+  progress?: number; // 0-100 for progress animation
 }
 
 interface EventLoopState {
@@ -124,7 +124,7 @@ interface EventLoopState {
   microtaskQueue: QueueItem[];
   webApis: WebApiItem[];
   currentPhase: 'stack' | 'microtask' | 'callback' | 'idle' | 'webapi';
-  output: string[];  // Console output
+  output: string[]; // Console output
 }
 
 interface EventLoopStep {
@@ -150,36 +150,36 @@ import type { Variants, Transition } from 'framer-motion';
 const stackItemVariants: Variants = {
   initial: { opacity: 0, y: -30, scale: 0.8 },
   animate: { opacity: 1, y: 0, scale: 1 },
-  exit: { opacity: 0, y: 30, scale: 0.8 }
+  exit: { opacity: 0, y: 30, scale: 0.8 },
 };
 
 const queueItemVariants: Variants = {
   initial: { opacity: 0, x: 50, scale: 0.9 },
   animate: { opacity: 1, x: 0, scale: 1 },
-  exit: { opacity: 0, x: -50, scale: 0.9 }
+  exit: { opacity: 0, x: -50, scale: 0.9 },
 };
 
 const fadeInVariants: Variants = {
   initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 }
+  animate: { opacity: 1, y: 0 },
 };
 
 const cardHoverVariants: Variants = {
   initial: { scale: 1 },
   hover: { scale: 1.02 },
-  tap: { scale: 0.98 }
+  tap: { scale: 0.98 },
 };
 
 const pulseVariants: Variants = {
   initial: { scale: 1 },
-  animate: { scale: [1, 1.05, 1] }  // Repeating
+  animate: { scale: [1, 1.05, 1] }, // Repeating
 };
 
 // Transition presets
 const springTransition: Transition = {
   type: 'spring',
   stiffness: 300,
-  damping: 20
+  damping: 20,
 };
 ```
 

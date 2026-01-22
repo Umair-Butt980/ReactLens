@@ -6,3 +6,6 @@ export * from './concept.types';
 export * from './visualization.types';
 export * from './event-loop.types';
 export * from './animation.types';
+export * from './call-stack.types';
+export * from './hoisting.types';
+export * from './closure.types';

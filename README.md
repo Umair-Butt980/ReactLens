@@ -21,6 +21,7 @@ ReactLens is an educational platform that teaches programming concepts through b
 ## 📚 Topics Covered
 
 ### Phase 1: JavaScript Fundamentals
+
 - ✅ Event Loop & Call Stack
 - 🔜 Closures & Scope
 - 🔜 Hoisting
@@ -31,6 +32,7 @@ ReactLens is an educational platform that teaches programming concepts through b
 - 🔜 Virtual DOM
 
 ### Phase 2: React Core Concepts
+
 - 🔜 JSX & Components
 - 🔜 Props & State
 - 🔜 React Hooks
@@ -48,17 +50,20 @@ ReactLens is an educational platform that teaches programming concepts through b
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/reactlens.git
 cd reactlens
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -67,17 +72,17 @@ npm run dev
 
 ## 📜 Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run lint` | Check for ESLint errors |
-| `npm run lint:fix` | Fix ESLint errors |
-| `npm run prettier` | Check code formatting |
-| `npm run prettier:fix` | Fix code formatting |
-| `npm run format` | Run Prettier + ESLint fix |
-| `npm run typecheck` | Check TypeScript types |
+| Command                | Description               |
+| ---------------------- | ------------------------- |
+| `npm run dev`          | Start development server  |
+| `npm run build`        | Build for production      |
+| `npm run start`        | Start production server   |
+| `npm run lint`         | Check for ESLint errors   |
+| `npm run lint:fix`     | Fix ESLint errors         |
+| `npm run prettier`     | Check code formatting     |
+| `npm run prettier:fix` | Fix code formatting       |
+| `npm run format`       | Run Prettier + ESLint fix |
+| `npm run typecheck`    | Check TypeScript types    |
 
 ## 🛠️ Tech Stack
 
@@ -119,11 +124,11 @@ reactlens/
 
 ReactLens uses a playful, educational dark theme:
 
-| Color | Hex | Usage |
-|-------|-----|-------|
-| Primary | `#8B5CF6` | Purple - Main accent |
-| Secondary | `#06B6D4` | Cyan - Secondary accent |
-| Accent | `#F97316` | Coral - Highlights |
+| Color      | Hex       | Usage                       |
+| ---------- | --------- | --------------------------- |
+| Primary    | `#8B5CF6` | Purple - Main accent        |
+| Secondary  | `#06B6D4` | Cyan - Secondary accent     |
+| Accent     | `#F97316` | Coral - Highlights          |
 | Background | `#0F172A` | Deep Navy - Page background |
 
 ## 🤝 Contributing

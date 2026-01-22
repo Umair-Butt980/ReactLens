@@ -9,18 +9,20 @@ Header component for concept visualization pages.
 **Location:** `components/layout/concept-header.tsx`
 
 **Props:**
+
 ```typescript
 interface ConceptHeaderProps {
-  title: string;              // Page title (e.g., "Event Loop")
-  currentStep: number;        // Current animation step
-  totalSteps: number;         // Total number of steps
-  backHref?: string;          // Back button URL (default: "/")
-  prevTopic?: { title: string; href: string };  // Previous topic link
-  nextTopic?: { title: string; href: string };  // Next topic link
+  title: string; // Page title (e.g., "Event Loop")
+  currentStep: number; // Current animation step
+  totalSteps: number; // Total number of steps
+  backHref?: string; // Back button URL (default: "/")
+  prevTopic?: { title: string; href: string }; // Previous topic link
+  nextTopic?: { title: string; href: string }; // Next topic link
 }
 ```
 
 **Usage:**
+
 ```tsx
 <ConceptHeader
   title="Event Loop"
@@ -41,15 +43,17 @@ Container for the animation and code panels.
 **Location:** `components/layout/main-content.tsx`
 
 **Props:**
+
 ```typescript
 interface SplitViewProps {
-  animationPanel: React.ReactNode;  // Left side content
-  codePanel: React.ReactNode;       // Right side content
+  animationPanel: React.ReactNode; // Left side content
+  codePanel: React.ReactNode; // Right side content
   className?: string;
 }
 ```
 
 **Usage:**
+
 ```tsx
 <SplitView
   animationPanel={<MyVisualization state={state} />}
@@ -66,17 +70,19 @@ Syntax-highlighted code display with line highlighting.
 **Location:** `components/layout/code-panel.tsx`
 
 **Props:**
+
 ```typescript
 interface CodePanelProps {
-  code: string;                    // Source code to display
-  language?: string;               // Language (default: "javascript")
-  highlightedLines?: number[];     // Lines to highlight
-  showLineNumbers?: boolean;       // Show line numbers (default: true)
+  code: string; // Source code to display
+  language?: string; // Language (default: "javascript")
+  highlightedLines?: number[]; // Lines to highlight
+  showLineNumbers?: boolean; // Show line numbers (default: true)
   className?: string;
 }
 ```
 
 **Usage:**
+
 ```tsx
 <CodePanel
   code={`console.log('Hello');`}
@@ -95,16 +101,18 @@ Bottom panel with step explanation and controls.
 **Location:** `components/layout/explanation-panel.tsx`
 
 **Props:**
+
 ```typescript
 interface ExplanationPanelProps {
-  title: string;           // Step title
-  explanation: string;     // Step explanation text
+  title: string; // Step title
+  explanation: string; // Step explanation text
   controls: React.ReactNode; // Playback controls
   className?: string;
 }
 ```
 
 **Usage:**
+
 ```tsx
 <ExplanationPanel
   title="The Call Stack"
@@ -122,12 +130,13 @@ Animation playback control bar.
 **Location:** `components/layout/playback-controls.tsx`
 
 **Props:**
+
 ```typescript
 interface PlaybackControlsProps {
   isPlaying: boolean;
   currentStep: number;
   totalSteps: number;
-  speed: PlaybackSpeed;  // 0.5 | 1 | 1.5 | 2
+  speed: PlaybackSpeed; // 0.5 | 1 | 1.5 | 2
   onPlay: () => void;
   onPause: () => void;
   onNext: () => void;
@@ -148,10 +157,11 @@ Cards for displaying topics on overview pages.
 **Location:** `components/layout/topic-card.tsx`
 
 **Props:**
+
 ```typescript
 interface TopicCardProps {
-  topic: Topic;      // Topic data
-  index?: number;    // For stagger animation
+  topic: Topic; // Topic data
+  index?: number; // For stagger animation
 }
 
 interface TopicGridProps {
@@ -161,6 +171,7 @@ interface TopicGridProps {
 ```
 
 **Usage:**
+
 ```tsx
 <TopicGrid topics={javascriptTopics} />
 ```
@@ -176,14 +187,16 @@ Animated Event Loop visualization.
 **Location:** `components/visualizations/javascript/event-loop-visual.tsx`
 
 **Props:**
+
 ```typescript
 interface EventLoopVisualProps {
-  state: EventLoopState;  // Current visualization state
+  state: EventLoopState; // Current visualization state
   className?: string;
 }
 ```
 
 **State Structure:**
+
 ```typescript
 interface EventLoopState {
   callStack: CallStackItem[];

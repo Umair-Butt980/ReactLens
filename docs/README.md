@@ -4,20 +4,22 @@ Welcome to the ReactLens documentation. This folder contains detailed documentat
 
 ## Contents
 
-| Document | Description |
-|----------|-------------|
-| [ARCHITECTURE.md](./ARCHITECTURE.md) | Project structure, tech stack, data flow, and theming |
-| [COMPONENTS.md](./COMPONENTS.md) | Detailed component API reference with usage examples |
-| [ADDING-VISUALIZATIONS.md](./ADDING-VISUALIZATIONS.md) | Step-by-step guide to add new concept visualizations |
-| [TYPES.md](./TYPES.md) | TypeScript type definitions reference |
+| Document                                               | Description                                           |
+| ------------------------------------------------------ | ----------------------------------------------------- |
+| [ARCHITECTURE.md](./ARCHITECTURE.md)                   | Project structure, tech stack, data flow, and theming |
+| [COMPONENTS.md](./COMPONENTS.md)                       | Detailed component API reference with usage examples  |
+| [ADDING-VISUALIZATIONS.md](./ADDING-VISUALIZATIONS.md) | Step-by-step guide to add new concept visualizations  |
+| [TYPES.md](./TYPES.md)                                 | TypeScript type definitions reference                 |
 
 ## Quick Links
 
 ### For Contributors
+
 - Start with [ARCHITECTURE.md](./ARCHITECTURE.md) to understand the project structure
 - Read [ADDING-VISUALIZATIONS.md](./ADDING-VISUALIZATIONS.md) to add new concepts
 
 ### For Developers
+
 - Check [COMPONENTS.md](./COMPONENTS.md) for component APIs
 - Reference [TYPES.md](./TYPES.md) for TypeScript types
 
@@ -26,16 +28,19 @@ Welcome to the ReactLens documentation. This folder contains detailed documentat
 ReactLens is organized into three main areas:
 
 ### 1. Pages (`app/`)
+
 - Landing page and section overviews
 - Individual concept visualization pages
 - Each concept page follows the same three-section layout
 
 ### 2. Components (`components/`)
+
 - **Layout components** - Reusable page structure components
 - **Visualizations** - Animated concept visualizations
 - **UI** - shadcn/ui base components
 
 ### 3. Library (`lib/`)
+
 - **Types** - TypeScript type definitions
 - **Data** - Topic metadata and step-by-step content
 - **Constants** - Theme colors and configuration
@@ -67,11 +72,13 @@ ReactLens is organized into three main areas:
 - **Framer Motion** for animations
 
 Run formatting:
+
 ```bash
 npm run format
 ```
 
 Check for issues:
+
 ```bash
 npm run lint
 npm run prettier
