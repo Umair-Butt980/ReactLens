@@ -1,65 +1,244 @@
-import Image from "next/image";
+'use client';
+
+import { motion } from 'framer-motion';
+import { Sparkles, Code2, Layers, Zap } from 'lucide-react';
+import Link from 'next/link';
+import { TopicGrid } from '@/components/layout';
+import { javascriptTopics } from '@/lib/data/javascript-topics';
+import { reactTopics } from '@/lib/data/react-topics';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="bg-background min-h-screen">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden" aria-label="hero section">
+        {/* Background gradient */}
+        <div
+          className="from-primary/10 via-background to-secondary/10 absolute inset-0 bg-gradient-to-br"
+          aria-hidden="true"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+          <motion.div
+            className="bg-primary/20 absolute -top-40 -right-40 h-80 w-80 rounded-full blur-3xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          <motion.div
+            className="bg-secondary/20 absolute -bottom-40 -left-40 h-80 w-80 rounded-full blur-3xl"
+            animate={{
+              scale: [1.2, 1, 1.2],
+              opacity: [0.3, 0.5, 0.3],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        </div>
+
+        <div className="relative container mx-auto px-4 py-20 md:py-32">
+          <motion.div
+            className="mx-auto max-w-3xl text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {/* Badge */}
+            <motion.div
+              className="border-primary/30 bg-primary/10 mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              <Sparkles className="text-primary h-4 w-4" aria-hidden="true" />
+              <span className="text-primary text-sm font-medium">Visual learning made simple</span>
+            </motion.div>
+
+            {/* Title */}
+            <h1 className="text-foreground mb-6 text-4xl font-bold tracking-tight md:text-6xl">
+              Master <span className="text-gradient">JavaScript & React</span>
+              <br />
+              Through Animations
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-muted-foreground mb-10 text-lg md:text-xl">
+              Understand complex concepts like the Event Loop, Closures, Hooks, and more through
+              beautiful, step-by-step visual explanations.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href="#javascript"
+                className={cn(
+                  'inline-flex h-12 items-center justify-center gap-2 rounded-xl px-8 text-base font-medium',
+                  'bg-primary text-primary-foreground',
+                  'hover:bg-primary/90 transition-all hover:scale-105',
+                  'glow-purple'
+                )}
+                aria-label="start with javascript"
+              >
+                <Zap className="h-5 w-5" aria-hidden="true" />
+                Start learning
+              </Link>
+              <Link
+                href="#react"
+                className={cn(
+                  'inline-flex h-12 items-center justify-center gap-2 rounded-xl px-8 text-base font-medium',
+                  'border-border bg-card/50 text-foreground border',
+                  'hover:bg-card hover:border-primary/50 transition-all'
+                )}
+                aria-label="explore react topics"
+              >
+                <Code2 className="h-5 w-5" aria-hidden="true" />
+                Explore React
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Feature highlights */}
+          <motion.div
+            className="mt-20 grid gap-6 md:grid-cols-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                className={cn(
+                  'border-border/50 bg-card/50 rounded-2xl border p-6 backdrop-blur-sm',
+                  'hover:border-primary/30 hover:bg-card/80 transition-all'
+                )}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + index * 0.1 }}
+              >
+                <div
+                  className={cn('mb-4 inline-flex rounded-xl p-3', feature.bgColor)}
+                  aria-hidden="true"
+                >
+                  <feature.icon className={cn('h-6 w-6', feature.iconColor)} />
+                </div>
+                <h3 className="text-foreground mb-2 text-lg font-semibold">{feature.title}</h3>
+                <p className="text-muted-foreground text-sm">{feature.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* JavaScript Section */}
+      <section
+        id="javascript"
+        className="border-border/40 border-t py-20"
+        aria-label="javascript topics"
+      >
+        <div className="container mx-auto px-4">
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-amber-500/20 px-4 py-1.5">
+              <div className="h-3 w-3 rounded-sm bg-amber-400" aria-hidden="true" />
+              <span className="text-sm font-medium text-amber-300">Phase 1</span>
+            </div>
+            <h2 className="text-foreground mb-4 text-3xl font-bold md:text-4xl">
+              JavaScript Fundamentals
+            </h2>
+            <p className="text-muted-foreground max-w-2xl">
+              Start with the foundation. Understand how JavaScript works under the hood, from the
+              Event Loop to Closures, and see why the Virtual DOM was created.
+            </p>
+          </motion.div>
+
+          <TopicGrid topics={javascriptTopics} />
+        </div>
+      </section>
+
+      {/* React Section */}
+      <section
+        id="react"
+        className="border-border/40 bg-card/30 border-t py-20"
+        aria-label="react topics"
+      >
+        <div className="container mx-auto px-4">
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-cyan-500/20 px-4 py-1.5">
+              <div className="h-3 w-3 rounded-full bg-cyan-400" aria-hidden="true" />
+              <span className="text-sm font-medium text-cyan-300">Phase 2</span>
+            </div>
+            <h2 className="text-foreground mb-4 text-3xl font-bold md:text-4xl">
+              React Core Concepts
+            </h2>
+            <p className="text-muted-foreground max-w-2xl">
+              Dive deep into React&apos;s internal workings. See how Hooks work, understand the
+              component lifecycle, and visualize the reconciliation process.
+            </p>
+          </motion.div>
+
+          <TopicGrid topics={reactTopics} />
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-border/40 border-t py-8" aria-label="footer">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-muted-foreground text-sm">
+            Built with{' '}
+            <span className="text-primary" aria-label="love">
+              ♥
+            </span>{' '}
+            for visual learners
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </footer>
     </div>
   );
 }
+
+const features = [
+  {
+    title: 'Visual Animations',
+    description:
+      'Watch concepts come to life with smooth, step-by-step animations that make abstract ideas concrete.',
+    icon: Layers,
+    bgColor: 'bg-primary/20',
+    iconColor: 'text-primary',
+  },
+  {
+    title: 'Deep Explanations',
+    description:
+      "Each visualization comes with detailed explanations that help you truly understand what's happening.",
+    icon: Code2,
+    bgColor: 'bg-secondary/20',
+    iconColor: 'text-secondary',
+  },
+  {
+    title: 'Learn at Your Pace',
+    description:
+      'Control the animation speed, step through at your own pace, or let it play automatically.',
+    icon: Zap,
+    bgColor: 'bg-accent/20',
+    iconColor: 'text-accent',
+  },
+];
