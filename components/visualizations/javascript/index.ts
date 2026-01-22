@@ -2,3 +2,8 @@ export { EventLoopVisual } from './event-loop-visual';
 export { CallStackVisual } from './call-stack-visual';
 export { HoistingVisual } from './hoisting-visual';
 export { ClosureVisual } from './closure-visual';
+export { DOMVisual } from './dom-visual';
+export { VirtualDOMVisual } from './virtual-dom-visual';
+export { AsyncVisual } from './async-visual';
+export { PrototypesVisual } from './prototypes-visual';
+export { MemoryVisual } from './memory-visual';

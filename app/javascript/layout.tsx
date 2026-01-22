@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ErrorBoundary } from '@/components/error-boundary';
 
 export const metadata: Metadata = {
   title: 'JavaScript Concepts | ReactLens',
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function JavaScriptLayout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+  return <ErrorBoundary>{children}</ErrorBoundary>;
 }
