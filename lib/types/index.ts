@@ -14,3 +14,4 @@ export * from './virtual-dom.types';
 export * from './async.types';
 export * from './prototypes.types';
 export * from './memory.types';
+export * from './jsx-components.types';
