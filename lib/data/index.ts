@@ -16,3 +16,6 @@ export * from './memory-steps';
 export * from './jsx-components-steps';
 export * from './props-state-steps';
 export * from './hooks-steps';
+export * from './lifecycle-steps';
+export * from './reconciliation-steps';
+export * from './fiber-steps';

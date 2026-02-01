@@ -17,3 +17,6 @@ export * from './memory.types';
 export * from './jsx-components.types';
 export * from './props-state.types';
 export * from './hooks.types';
+export * from './lifecycle.types';
+export * from './reconciliation.types';
+export * from './fiber.types';
