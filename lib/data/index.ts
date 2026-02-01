@@ -14,3 +14,5 @@ export * from './async-steps';
 export * from './prototypes-steps';
 export * from './memory-steps';
 export * from './jsx-components-steps';
+export * from './props-state-steps';
+export * from './hooks-steps';

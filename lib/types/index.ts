@@ -15,3 +15,5 @@ export * from './async.types';
 export * from './prototypes.types';
 export * from './memory.types';
 export * from './jsx-components.types';
+export * from './props-state.types';
+export * from './hooks.types';
