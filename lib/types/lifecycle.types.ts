@@ -1,6 +1,6 @@
 /**
  * Types for Component Lifecycle visualization
- * 
+ *
  * This visualization shows the complete lifecycle of a React component
  * from mounting through updates to unmounting, including how hooks
  * integrate with the lifecycle.
@@ -10,32 +10,32 @@
 export type LifecyclePhaseName = 'mount' | 'update' | 'unmount';
 
 // Mount phase stages
-export type MountStage = 
-  | 'initial-render'      // Component function called first time
-  | 'create-fiber'        // Fiber node created
-  | 'execute-render'      // JSX returned
-  | 'commit-dom'          // DOM nodes created and inserted
-  | 'run-effects'         // useEffect callbacks run
-  | 'mount-complete';     // Component fully mounted
+export type MountStage =
+  | 'initial-render' // Component function called first time
+  | 'create-fiber' // Fiber node created
+  | 'execute-render' // JSX returned
+  | 'commit-dom' // DOM nodes created and inserted
+  | 'run-effects' // useEffect callbacks run
+  | 'mount-complete'; // Component fully mounted
 
 // Update phase stages
-export type UpdateStage = 
-  | 'trigger'             // State/props change detected
-  | 'schedule-update'     // Update scheduled in queue
-  | 'execute-render'      // Component re-renders
-  | 'reconcile'           // Diff old vs new
-  | 'commit-dom'          // DOM updated
-  | 'cleanup-effects'     // Previous effect cleanup
-  | 'run-effects'         // New effects run
-  | 'update-complete';    // Update cycle complete
+export type UpdateStage =
+  | 'trigger' // State/props change detected
+  | 'schedule-update' // Update scheduled in queue
+  | 'execute-render' // Component re-renders
+  | 'reconcile' // Diff old vs new
+  | 'commit-dom' // DOM updated
+  | 'cleanup-effects' // Previous effect cleanup
+  | 'run-effects' // New effects run
+  | 'update-complete'; // Update cycle complete
 
-// Unmount phase stages  
-export type UnmountStage = 
-  | 'trigger'             // Parent removes component
-  | 'cleanup-effects'     // All effect cleanups run
-  | 'remove-dom'          // DOM nodes removed
-  | 'destroy-fiber'       // Fiber node destroyed
-  | 'unmount-complete';   // Component fully unmounted
+// Unmount phase stages
+export type UnmountStage =
+  | 'trigger' // Parent removes component
+  | 'cleanup-effects' // All effect cleanups run
+  | 'remove-dom' // DOM nodes removed
+  | 'destroy-fiber' // Fiber node destroyed
+  | 'unmount-complete'; // Component fully unmounted
 
 // Combined stage type
 export type LifecycleStage = MountStage | UpdateStage | UnmountStage;
@@ -122,22 +122,22 @@ export interface LifecycleOutput {
 export interface LifecycleState {
   // Component being visualized
   component: ComponentInstance;
-  
+
   // Timeline of lifecycle events
   timeline: LifecycleEvent[];
-  
+
   // Current DOM representation
   dom: DOMNodeSimple[];
-  
+
   // Which phase diagram segment is active
   activePhaseSegment: LifecyclePhaseName;
-  
+
   // Console output
   output: LifecycleOutput[];
-  
+
   // Show the circular diagram
   showDiagram: boolean;
-  
+
   // Active panel
   activePanel: 'diagram' | 'component' | 'timeline' | 'dom';
 }

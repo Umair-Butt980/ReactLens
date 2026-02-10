@@ -12,11 +12,7 @@ import {
 import { CodePanel } from '@/components/layout/code-panel';
 import { VisualizationErrorBoundary } from '@/components/error-boundary';
 import { FiberVisual } from '@/components/visualizations/react';
-import {
-  fiberSteps,
-  fiberCode,
-  fiberKeyTakeaways,
-} from '@/lib/data';
+import { fiberSteps, fiberCode, fiberKeyTakeaways } from '@/lib/data';
 import type { PlaybackSpeed } from '@/lib/types';
 
 export default function FiberPage() {

@@ -18,6 +18,9 @@ import {
   RefreshCw,
   GitCompare,
   Network,
+  FolderTree,
+  Server,
+  Globe,
   LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -41,6 +44,9 @@ const iconMap: Record<string, LucideIcon> = {
   RefreshCw,
   GitCompare,
   Network,
+  FolderTree,
+  Server,
+  Globe,
 };
 
 interface TopicCardProps {

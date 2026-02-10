@@ -12,11 +12,7 @@ import {
 import { CodePanel } from '@/components/layout/code-panel';
 import { VisualizationErrorBoundary } from '@/components/error-boundary';
 import { LifecycleVisual } from '@/components/visualizations/react';
-import {
-  lifecycleSteps,
-  lifecycleCode,
-  lifecycleKeyTakeaways,
-} from '@/lib/data';
+import { lifecycleSteps, lifecycleCode, lifecycleKeyTakeaways } from '@/lib/data';
 import type { PlaybackSpeed } from '@/lib/types';
 
 export default function LifecyclePage() {

@@ -11,17 +11,17 @@ import {
 } from '@/components/layout';
 import { CodePanel } from '@/components/layout/code-panel';
 import { VisualizationErrorBoundary } from '@/components/error-boundary';
-import { ReconciliationVisual } from '@/components/visualizations/react';
-import { reconciliationSteps, reconciliationCode, reconciliationKeyTakeaways } from '@/lib/data';
+import { FileRoutingVisual } from '@/components/visualizations/nextjs';
+import { fileRoutingSteps, fileRoutingCode, fileRoutingKeyTakeaways } from '@/lib/data';
 import type { PlaybackSpeed } from '@/lib/types';
 
-export default function ReconciliationPage() {
+export default function FileRoutingPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState<PlaybackSpeed>(1);
 
-  const totalSteps = reconciliationSteps.length;
-  const currentStepData = reconciliationSteps[currentStep - 1];
+  const totalSteps = fileRoutingSteps.length;
+  const currentStepData = fileRoutingSteps[currentStep - 1];
 
   // Auto-play logic with error handling
   useEffect(() => {
@@ -98,28 +98,30 @@ export default function ReconciliationPage() {
     <div className="bg-background flex min-h-screen flex-col">
       {/* Header */}
       <ConceptHeader
-        title="Reconciliation"
+        title="File-based Routing"
         currentStep={currentStep}
         totalSteps={totalSteps}
-        backHref="/react"
-        prevTopic={{ title: 'Component Lifecycle', href: '/react/lifecycle' }}
-        nextTopic={{ title: 'React Fiber', href: '/react/fiber' }}
+        backHref="/nextjs"
+        nextTopic={{
+          title: 'Server vs Client Components',
+          href: '/nextjs/server-client-components',
+        }}
       />
 
       {/* Main Content - Split View */}
       <div className="flex-1 overflow-hidden">
         <SplitView
           animationPanel={
-            <AnimationPanelWrapper title="Diffing Algorithm">
-              <VisualizationErrorBoundary visualizationName="Reconciliation">
-                <ReconciliationVisual state={currentStepData.state} />
+            <AnimationPanelWrapper title="App Router">
+              <VisualizationErrorBoundary visualizationName="File-based Routing">
+                <FileRoutingVisual state={currentStepData.state} />
               </VisualizationErrorBoundary>
             </AnimationPanelWrapper>
           }
           codePanel={
             <CodePanel
-              code={reconciliationCode}
-              language="jsx"
+              code={fileRoutingCode}
+              language="tsx"
               highlightedLines={currentStepData.highlightedLines}
               showLineNumbers
             />
@@ -149,7 +151,7 @@ export default function ReconciliationPage() {
 
             {/* Show key takeaways on the last step */}
             {currentStep === totalSteps && (
-              <KeyTakeaways takeaways={reconciliationKeyTakeaways} className="w-full max-w-xl" />
+              <KeyTakeaways takeaways={fileRoutingKeyTakeaways} className="w-full max-w-xl" />
             )}
           </div>
         }

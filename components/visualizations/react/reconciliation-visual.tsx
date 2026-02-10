@@ -1,11 +1,11 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  GitCompare, 
-  ArrowRight, 
-  Plus, 
-  Minus, 
+import {
+  GitCompare,
+  ArrowRight,
+  Plus,
+  Minus,
   RefreshCw,
   Key,
   Layers,
@@ -164,7 +164,9 @@ export function ReconciliationVisual({ state, className }: ReconciliationVisualP
                   <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" aria-hidden="true" />
                   <div className="h-2.5 w-2.5 rounded-full bg-green-500/80" aria-hidden="true" />
                 </div>
-                <span className="text-muted-foreground text-xs font-medium">Reconciliation Log</span>
+                <span className="text-muted-foreground text-xs font-medium">
+                  Reconciliation Log
+                </span>
               </div>
               <div className="min-h-[60px] space-y-1 font-mono text-xs">
                 <AnimatePresence mode="popLayout">
@@ -191,7 +193,15 @@ export function ReconciliationVisual({ state, className }: ReconciliationVisualP
 }
 
 // VDOM Tree visualization
-function VDOMTreeView({ node, side, depth = 0 }: { node: VDOMNode; side: 'old' | 'new'; depth?: number }) {
+function VDOMTreeView({
+  node,
+  side,
+  depth = 0,
+}: {
+  node: VDOMNode;
+  side: 'old' | 'new';
+  depth?: number;
+}) {
   const statusColors: Record<DiffStatus, string> = {
     unchanged: 'border-muted-foreground/30',
     updated: 'border-amber-500 bg-amber-500/10',
@@ -206,13 +216,13 @@ function VDOMTreeView({ node, side, depth = 0 }: { node: VDOMNode; side: 'old' |
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className={cn('relative', depth > 0 && 'ml-3 mt-1')}
+      className={cn('relative', depth > 0 && 'mt-1 ml-3')}
     >
       <div
         className={cn(
           'rounded border px-2 py-1 text-xs transition-all',
           statusColors[node.diffStatus],
-          node.isHighlighted && 'ring-2 ring-offset-1 ring-offset-background ring-orange-500'
+          node.isHighlighted && 'ring-offset-background ring-2 ring-orange-500 ring-offset-1'
         )}
       >
         <div className="flex items-center gap-1">
@@ -225,7 +235,7 @@ function VDOMTreeView({ node, side, depth = 0 }: { node: VDOMNode; side: 'old' |
           <DiffStatusBadge status={node.diffStatus} />
         </div>
         {Object.keys(node.props).length > 0 && (
-          <div className="mt-1 text-muted-foreground">
+          <div className="text-muted-foreground mt-1">
             {Object.entries(node.props)
               .filter(([k]) => k !== 'key')
               .map(([key, value]) => (
@@ -239,7 +249,7 @@ function VDOMTreeView({ node, side, depth = 0 }: { node: VDOMNode; side: 'old' |
 
       {/* Children */}
       {node.children.length > 0 && (
-        <div className="border-l border-dashed border-muted-foreground/30 pl-2">
+        <div className="border-muted-foreground/30 border-l border-dashed pl-2">
           {node.children.map((child) => (
             <VDOMTreeView key={child.id} node={child} side={side} depth={depth + 1} />
           ))}
@@ -258,8 +268,16 @@ function DiffStatusBadge({ status }: { status: DiffStatus }) {
     replaced: { icon: <RefreshCw className="h-3 w-3" />, color: 'text-red-400', label: 'Replaced' },
     added: { icon: <Plus className="h-3 w-3" />, color: 'text-emerald-400', label: 'Added' },
     removed: { icon: <Minus className="h-3 w-3" />, color: 'text-red-400', label: 'Removed' },
-    reordered: { icon: <ArrowRight className="h-3 w-3" />, color: 'text-purple-400', label: 'Moved' },
-    comparing: { icon: <Circle className="h-3 w-3 animate-pulse" />, color: 'text-cyan-400', label: 'Comparing' },
+    reordered: {
+      icon: <ArrowRight className="h-3 w-3" />,
+      color: 'text-purple-400',
+      label: 'Moved',
+    },
+    comparing: {
+      icon: <Circle className="h-3 w-3 animate-pulse" />,
+      color: 'text-cyan-400',
+      label: 'Comparing',
+    },
   };
 
   const cfg = config[status];
@@ -300,7 +318,9 @@ function KeyMatchingView({ reconciliation }: { reconciliation: ListReconciliatio
                   key={key}
                   className={cn(
                     'rounded px-2 py-0.5',
-                    isNew ? 'bg-emerald-500/20 text-emerald-300' : 'bg-emerald-500/10 text-emerald-200'
+                    isNew
+                      ? 'bg-emerald-500/20 text-emerald-300'
+                      : 'bg-emerald-500/10 text-emerald-200'
                   )}
                 >
                   {key}
@@ -337,9 +357,9 @@ function KeyMatchItem({ match }: { match: KeyMatch }) {
     <motion.div
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
-      className="flex items-center gap-2 rounded bg-card/50 px-2 py-1 text-xs"
+      className="bg-card/50 flex items-center gap-2 rounded px-2 py-1 text-xs"
     >
-      <span className="font-mono text-foreground">key=&quot;{match.key}&quot;</span>
+      <span className="text-foreground font-mono">key=&quot;{match.key}&quot;</span>
       {match.status === 'moved' && (
         <span className="text-muted-foreground">
           [{match.oldIndex}] → [{match.newIndex}]
@@ -353,7 +373,7 @@ function KeyMatchItem({ match }: { match: KeyMatch }) {
 // Diff results view
 function DiffResultsView({ results }: { results: DiffResult[] }) {
   return (
-    <div className="space-y-2 max-h-[150px] overflow-y-auto">
+    <div className="max-h-[150px] space-y-2 overflow-y-auto">
       {results.map((result) => (
         <motion.div
           key={result.id}
@@ -380,7 +400,7 @@ function DiffResultsView({ results }: { results: DiffResult[] }) {
 // DOM operations view
 function DOMOperationsView({ operations }: { operations: ReconciliationDOMOperation[] }) {
   return (
-    <div className="space-y-2 max-h-[150px] overflow-y-auto">
+    <div className="max-h-[150px] space-y-2 overflow-y-auto">
       {operations.map((op, index) => (
         <motion.div
           key={op.id}
@@ -396,7 +416,7 @@ function DOMOperationsView({ operations }: { operations: ReconciliationDOMOperat
           {op.isExecuted ? (
             <CheckCircle className="h-3 w-3 text-emerald-400" />
           ) : (
-            <Circle className="h-3 w-3 text-muted-foreground" />
+            <Circle className="text-muted-foreground h-3 w-3" />
           )}
           <span className="font-mono text-cyan-400">{op.type}</span>
           <span className="text-muted-foreground">{op.details}</span>
@@ -426,15 +446,25 @@ function PhaseIndicator({ phase }: { phase: ReconciliationPhase }) {
       <motion.div
         className={cn(
           'h-2 w-2 rounded-full',
-          phase === 'complete' ? 'bg-emerald-400' : isActive ? 'bg-orange-400' : 'bg-muted-foreground/50'
+          phase === 'complete'
+            ? 'bg-emerald-400'
+            : isActive
+              ? 'bg-orange-400'
+              : 'bg-muted-foreground/50'
         )}
         animate={isActive ? { scale: [1, 1.2, 1] } : {}}
         transition={{ repeat: Infinity, duration: 1 }}
       />
-      <span className={cn(
-        'text-xs font-medium',
-        phase === 'complete' ? 'text-emerald-400' : isActive ? 'text-orange-400' : 'text-muted-foreground'
-      )}>
+      <span
+        className={cn(
+          'text-xs font-medium',
+          phase === 'complete'
+            ? 'text-emerald-400'
+            : isActive
+              ? 'text-orange-400'
+              : 'text-muted-foreground'
+        )}
+      >
         {phaseLabels[phase]}
       </span>
     </div>
@@ -468,9 +498,7 @@ function OutputMessage({ message }: { message: ReconciliationOutput }) {
       exit={{ opacity: 0 }}
       className="flex gap-2"
     >
-      <span className={cn('select-none', colors[message.type])}>
-        {icons[message.type]}
-      </span>
+      <span className={cn('select-none', colors[message.type])}>{icons[message.type]}</span>
       <span className="text-foreground/80">{message.message}</span>
     </motion.div>
   );

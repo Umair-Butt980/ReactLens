@@ -1,10 +1,10 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  RefreshCw, 
-  Play, 
-  Square, 
+import {
+  RefreshCw,
+  Play,
+  Square,
   Circle,
   ArrowRight,
   Zap,
@@ -31,15 +31,7 @@ interface LifecycleVisualProps {
 }
 
 export function LifecycleVisual({ state, className }: LifecycleVisualProps) {
-  const {
-    component,
-    timeline,
-    dom,
-    activePhaseSegment,
-    output,
-    showDiagram,
-    activePanel,
-  } = state;
+  const { component, timeline, dom, activePhaseSegment, output, showDiagram, activePanel } = state;
 
   const renderContent = () => {
     try {
@@ -65,7 +57,10 @@ export function LifecycleVisual({ state, className }: LifecycleVisualProps) {
                   <RefreshCw className="h-4 w-4 text-pink-400" aria-hidden="true" />
                   <h3 className="text-foreground text-sm font-semibold">Lifecycle Phases</h3>
                 </div>
-                <LifecycleDiagram activePhase={activePhaseSegment} progress={component.phase.progress} />
+                <LifecycleDiagram
+                  activePhase={activePhaseSegment}
+                  progress={component.phase.progress}
+                />
               </div>
             )}
 
@@ -163,8 +158,19 @@ export function LifecycleVisual({ state, className }: LifecycleVisualProps) {
 }
 
 // Lifecycle diagram showing the three phases
-function LifecycleDiagram({ activePhase, progress }: { activePhase: LifecyclePhaseName; progress: number }) {
-  const phases: { name: LifecyclePhaseName; label: string; color: string; icon: React.ReactNode }[] = [
+function LifecycleDiagram({
+  activePhase,
+  progress,
+}: {
+  activePhase: LifecyclePhaseName;
+  progress: number;
+}) {
+  const phases: {
+    name: LifecyclePhaseName;
+    label: string;
+    color: string;
+    icon: React.ReactNode;
+  }[] = [
     { name: 'mount', label: 'Mount', color: '#22C55E', icon: <Play className="h-4 w-4" /> },
     { name: 'update', label: 'Update', color: '#F59E0B', icon: <RefreshCw className="h-4 w-4" /> },
     { name: 'unmount', label: 'Unmount', color: '#EF4444', icon: <Square className="h-4 w-4" /> },
@@ -179,13 +185,15 @@ function LifecycleDiagram({ activePhase, progress }: { activePhase: LifecyclePha
             <motion.div
               className={cn(
                 'flex flex-col items-center gap-2 rounded-xl p-4 transition-all',
-                isActive ? 'ring-2 ring-offset-2 ring-offset-background' : 'opacity-50'
+                isActive ? 'ring-offset-background ring-2 ring-offset-2' : 'opacity-50'
               )}
-              style={{
-                backgroundColor: isActive ? `${phase.color}20` : 'transparent',
-                borderColor: phase.color,
-                '--tw-ring-color': phase.color,
-              } as React.CSSProperties}
+              style={
+                {
+                  backgroundColor: isActive ? `${phase.color}20` : 'transparent',
+                  borderColor: phase.color,
+                  '--tw-ring-color': phase.color,
+                } as React.CSSProperties
+              }
               animate={isActive ? { scale: [1, 1.05, 1] } : {}}
               transition={{ duration: 1, repeat: isActive ? Infinity : 0 }}
             >
@@ -199,7 +207,7 @@ function LifecycleDiagram({ activePhase, progress }: { activePhase: LifecyclePha
                 {phase.label}
               </span>
               {isActive && (
-                <div className="h-1 w-16 overflow-hidden rounded-full bg-muted">
+                <div className="bg-muted h-1 w-16 overflow-hidden rounded-full">
                   <motion.div
                     className="h-full rounded-full"
                     style={{ backgroundColor: phase.color }}
@@ -211,7 +219,7 @@ function LifecycleDiagram({ activePhase, progress }: { activePhase: LifecyclePha
               )}
             </motion.div>
             {index < phases.length - 1 && (
-              <ArrowRight className="mx-2 h-5 w-5 text-muted-foreground/50" aria-hidden="true" />
+              <ArrowRight className="text-muted-foreground/50 mx-2 h-5 w-5" aria-hidden="true" />
             )}
           </div>
         );
@@ -228,19 +236,17 @@ function ComponentInstanceView({ component }: { component: ComponentInstance }) 
       animate={{ opacity: 1 }}
       className={cn(
         'rounded-lg border-2 p-3 transition-all',
-        component.isHighlighted ? 'border-purple-500 bg-purple-500/20' : 'border-border/50 bg-card/50',
+        component.isHighlighted
+          ? 'border-purple-500 bg-purple-500/20'
+          : 'border-border/50 bg-card/50',
         !component.isMounted && 'opacity-50'
       )}
     >
       {/* Header */}
       <div className="mb-3 flex items-center justify-between">
-        <span className="font-mono text-sm font-semibold text-purple-300">
-          {component.name}
-        </span>
+        <span className="font-mono text-sm font-semibold text-purple-300">{component.name}</span>
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">
-            Render #{component.renderCount}
-          </span>
+          <span className="text-muted-foreground text-xs">Render #{component.renderCount}</span>
           {component.isMounted ? (
             <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs text-emerald-400">
               Mounted
@@ -280,7 +286,7 @@ function ComponentInstanceView({ component }: { component: ComponentInstance }) 
             {component.props.map((p) => (
               <div key={p.id} className="flex items-center justify-between text-xs">
                 <span className="text-cyan-300">{p.name}</span>
-                <span className="font-mono text-foreground/70">{p.value}</span>
+                <span className="text-foreground/70 font-mono">{p.value}</span>
               </div>
             ))}
           </div>
@@ -320,7 +326,9 @@ function StateItem({ state }: { state: LifecycleStateValue }) {
             <span className="text-muted-foreground">→</span>
           </>
         )}
-        <span className={cn('font-mono', state.hasChanged ? 'text-amber-300' : 'text-foreground/70')}>
+        <span
+          className={cn('font-mono', state.hasChanged ? 'text-amber-300' : 'text-foreground/70')}
+        >
           {state.value}
         </span>
       </div>
@@ -338,7 +346,7 @@ function EffectItem({ effect }: { effect: LifecycleEffect }) {
   };
 
   return (
-    <div className="flex items-center justify-between rounded bg-card/50 px-2 py-1 text-xs">
+    <div className="bg-card/50 flex items-center justify-between rounded px-2 py-1 text-xs">
       <span className="text-amber-300">{effect.name}</span>
       <div className="flex items-center gap-2">
         <span className={cn('rounded px-1.5 py-0.5', statusColors[effect.status])}>
@@ -364,7 +372,7 @@ function TimelineView({ events }: { events: LifecycleEvent[] }) {
   };
 
   return (
-    <div className="space-y-2 max-h-[200px] overflow-y-auto">
+    <div className="max-h-[200px] space-y-2 overflow-y-auto">
       {events.map((event, index) => (
         <motion.div
           key={event.id}
@@ -383,7 +391,7 @@ function TimelineView({ events }: { events: LifecycleEvent[] }) {
           <span className="text-muted-foreground">{event.phase}</span>
           <span className="text-foreground">{event.description}</span>
           {event.isActive && (
-            <Circle className="h-3 w-3 animate-pulse fill-current text-cyan-400 ml-auto" />
+            <Circle className="ml-auto h-3 w-3 animate-pulse fill-current text-cyan-400" />
           )}
         </motion.div>
       ))}
@@ -408,21 +416,24 @@ function DOMView({ nodes }: { nodes: DOMNodeSimple[] }) {
           )}
         >
           <div className="flex items-center justify-between">
-            <span className={cn(
-              node.isNew ? 'text-emerald-400' :
-              node.isUpdated ? 'text-amber-400' :
-              node.isRemoved ? 'text-red-400' :
-              'text-foreground'
-            )}>
+            <span
+              className={cn(
+                node.isNew
+                  ? 'text-emerald-400'
+                  : node.isUpdated
+                    ? 'text-amber-400'
+                    : node.isRemoved
+                      ? 'text-red-400'
+                      : 'text-foreground'
+              )}
+            >
               &lt;{node.tagName}&gt;
             </span>
-            {node.isNew && <span className="text-emerald-400 text-[10px]">NEW</span>}
-            {node.isUpdated && <span className="text-amber-400 text-[10px]">UPDATED</span>}
-            {node.isRemoved && <span className="text-red-400 text-[10px]">REMOVED</span>}
+            {node.isNew && <span className="text-[10px] text-emerald-400">NEW</span>}
+            {node.isUpdated && <span className="text-[10px] text-amber-400">UPDATED</span>}
+            {node.isRemoved && <span className="text-[10px] text-red-400">REMOVED</span>}
           </div>
-          {node.content && (
-            <p className="mt-1 text-muted-foreground">{node.content}</p>
-          )}
+          {node.content && <p className="text-muted-foreground mt-1">{node.content}</p>}
         </motion.div>
       ))}
     </div>
@@ -456,9 +467,7 @@ function OutputMessage({ message }: { message: LifecycleOutput }) {
       exit={{ opacity: 0 }}
       className="flex gap-2"
     >
-      <span className={cn('select-none', colors[message.type])}>
-        {icons[message.type]}
-      </span>
+      <span className={cn('select-none', colors[message.type])}>{icons[message.type]}</span>
       <span className="text-foreground/80">{message.message}</span>
     </motion.div>
   );

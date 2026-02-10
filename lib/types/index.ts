@@ -20,3 +20,6 @@ export * from './hooks.types';
 export * from './lifecycle.types';
 export * from './reconciliation.types';
 export * from './fiber.types';
+export * from './file-routing.types';
+export * from './server-client-components.types';
+export * from './rendering-strategies.types';

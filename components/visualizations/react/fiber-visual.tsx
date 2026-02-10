@@ -1,10 +1,10 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Network, 
-  Play, 
-  Pause, 
+import {
+  Network,
+  Play,
+  Pause,
   Clock,
   Layers,
   ArrowRight,
@@ -94,7 +94,7 @@ export function FiberVisual({ state, className }: FiberVisualProps) {
               </div>
 
               {showAlternate && currentTree && wipTree && (
-                <div className="mt-2 flex items-center justify-center gap-2 text-xs text-muted-foreground">
+                <div className="text-muted-foreground mt-2 flex items-center justify-center gap-2 text-xs">
                   <span>Current</span>
                   <ArrowRight className="h-3 w-3" />
                   <span className="text-purple-400">.alternate</span>
@@ -198,14 +198,14 @@ export function FiberVisual({ state, className }: FiberVisualProps) {
 }
 
 // Fiber tree visualization
-function FiberTreeView({ 
-  node, 
-  showPointers, 
+function FiberTreeView({
+  node,
+  showPointers,
   isWip,
-  depth = 0 
-}: { 
-  node: FiberNode; 
-  showPointers: boolean; 
+  depth = 0,
+}: {
+  node: FiberNode;
+  showPointers: boolean;
   isWip: boolean;
   depth?: number;
 }) {
@@ -220,40 +220,38 @@ function FiberTreeView({
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className={cn('relative', depth > 0 && 'ml-3 mt-1')}
+      className={cn('relative', depth > 0 && 'mt-1 ml-3')}
     >
       {/* Fiber Node */}
       <div
         className={cn(
           'rounded border px-2 py-1 text-xs transition-all',
           tagColors[node.tag] || 'border-muted-foreground/30',
-          node.isHighlighted && 'ring-2 ring-offset-1 ring-offset-background',
+          node.isHighlighted && 'ring-offset-background ring-2 ring-offset-1',
           node.isHighlighted && (isWip ? 'ring-amber-500' : 'ring-blue-500'),
           node.isProcessing && 'animate-pulse'
         )}
       >
         <div className="flex items-center gap-1">
-          <span className="font-medium text-foreground">{node.type}</span>
-          {node.isProcessing && (
-            <RefreshCw className="h-3 w-3 animate-spin text-amber-400" />
-          )}
-          {node.isComplete && (
-            <CheckCircle className="h-3 w-3 text-emerald-400" />
-          )}
+          <span className="text-foreground font-medium">{node.type}</span>
+          {node.isProcessing && <RefreshCw className="h-3 w-3 animate-spin text-amber-400" />}
+          {node.isComplete && <CheckCircle className="h-3 w-3 text-emerald-400" />}
         </div>
-        
+
         {node.flags && node.flags.length > 0 && node.flags[0] !== 'NoFlags' && (
           <div className="mt-1 flex flex-wrap gap-1">
-            {node.flags.filter(f => f !== 'NoFlags').map((flag, i) => (
-              <span key={i} className="rounded bg-amber-500/20 px-1 text-[10px] text-amber-300">
-                {flag}
-              </span>
-            ))}
+            {node.flags
+              .filter((f) => f !== 'NoFlags')
+              .map((flag, i) => (
+                <span key={i} className="rounded bg-amber-500/20 px-1 text-[10px] text-amber-300">
+                  {flag}
+                </span>
+              ))}
           </div>
         )}
 
         {showPointers && (
-          <div className="mt-1 flex gap-2 text-[10px] text-muted-foreground">
+          <div className="text-muted-foreground mt-1 flex gap-2 text-[10px]">
             {node.child && <span>child→</span>}
             {node.sibling && <span>sibling→</span>}
             {node.return && <span>return↑</span>}
@@ -263,11 +261,16 @@ function FiberTreeView({
 
       {/* Child */}
       {node.child && (
-        <div className="relative ml-2 border-l border-dashed border-muted-foreground/30 pl-2">
+        <div className="border-muted-foreground/30 relative ml-2 border-l border-dashed pl-2">
           {showPointers && (
-            <ArrowDown className="absolute -left-[5px] top-0 h-3 w-3 text-muted-foreground/50" />
+            <ArrowDown className="text-muted-foreground/50 absolute top-0 -left-[5px] h-3 w-3" />
           )}
-          <FiberTreeView node={node.child} showPointers={showPointers} isWip={isWip} depth={depth + 1} />
+          <FiberTreeView
+            node={node.child}
+            showPointers={showPointers}
+            isWip={isWip}
+            depth={depth + 1}
+          />
         </div>
       )}
 
@@ -275,9 +278,14 @@ function FiberTreeView({
       {node.sibling && (
         <div className="relative mt-1">
           {showPointers && (
-            <CornerDownRight className="absolute -left-1 -top-1 h-3 w-3 text-muted-foreground/50" />
+            <CornerDownRight className="text-muted-foreground/50 absolute -top-1 -left-1 h-3 w-3" />
           )}
-          <FiberTreeView node={node.sibling} showPointers={showPointers} isWip={isWip} depth={depth} />
+          <FiberTreeView
+            node={node.sibling}
+            showPointers={showPointers}
+            isWip={isWip}
+            depth={depth}
+          />
         </div>
       )}
     </motion.div>
@@ -290,34 +298,40 @@ function WorkLoopView({ workLoop }: { workLoop: WorkLoop }) {
     <div className="space-y-3">
       {/* Phase */}
       <div className="flex items-center justify-between">
-        <span className="text-xs text-muted-foreground">Phase:</span>
-        <span className={cn(
-          'rounded px-2 py-0.5 text-xs font-medium',
-          workLoop.phase === 'idle' ? 'bg-gray-500/20 text-gray-300' :
-          workLoop.phase === 'finished' ? 'bg-emerald-500/20 text-emerald-300' :
-          'bg-cyan-500/20 text-cyan-300'
-        )}>
+        <span className="text-muted-foreground text-xs">Phase:</span>
+        <span
+          className={cn(
+            'rounded px-2 py-0.5 text-xs font-medium',
+            workLoop.phase === 'idle'
+              ? 'bg-gray-500/20 text-gray-300'
+              : workLoop.phase === 'finished'
+                ? 'bg-emerald-500/20 text-emerald-300'
+                : 'bg-cyan-500/20 text-cyan-300'
+          )}
+        >
           {workLoop.phase}
         </span>
       </div>
 
       {/* Time Remaining */}
       <div className="flex items-center justify-between">
-        <span className="text-xs text-muted-foreground">Time remaining:</span>
+        <span className="text-muted-foreground text-xs">Time remaining:</span>
         <div className="flex items-center gap-2">
-          <div className="h-2 w-24 overflow-hidden rounded-full bg-muted">
+          <div className="bg-muted h-2 w-24 overflow-hidden rounded-full">
             <motion.div
               className={cn(
                 'h-full rounded-full',
-                workLoop.timeRemaining > 10 ? 'bg-emerald-500' :
-                workLoop.timeRemaining > 5 ? 'bg-amber-500' :
-                'bg-red-500'
+                workLoop.timeRemaining > 10
+                  ? 'bg-emerald-500'
+                  : workLoop.timeRemaining > 5
+                    ? 'bg-amber-500'
+                    : 'bg-red-500'
               )}
               initial={{ width: '100%' }}
               animate={{ width: `${(workLoop.timeRemaining / 16) * 100}%` }}
             />
           </div>
-          <span className="text-xs text-foreground">{workLoop.timeRemaining}ms</span>
+          <span className="text-foreground text-xs">{workLoop.timeRemaining}ms</span>
         </div>
       </div>
 
@@ -335,7 +349,7 @@ function WorkLoopView({ workLoop }: { workLoop: WorkLoop }) {
       {/* Current Lane */}
       {workLoop.currentLane && (
         <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">Current lane:</span>
+          <span className="text-muted-foreground text-xs">Current lane:</span>
           <LaneBadge lane={workLoop.currentLane} />
         </div>
       )}
@@ -343,8 +357,8 @@ function WorkLoopView({ workLoop }: { workLoop: WorkLoop }) {
       {/* Work Units */}
       {workLoop.unitsOfWork > 0 && (
         <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">Units processed:</span>
-          <span className="text-xs text-foreground">{workLoop.unitsOfWork}</span>
+          <span className="text-muted-foreground text-xs">Units processed:</span>
+          <span className="text-foreground text-xs">{workLoop.unitsOfWork}</span>
         </div>
       )}
     </div>
@@ -362,11 +376,7 @@ function LaneBadge({ lane }: { lane: PriorityLane }) {
   };
 
   const cfg = laneConfig[lane];
-  return (
-    <span className={cn('rounded px-2 py-0.5 text-xs', cfg.color)}>
-      {cfg.label}
-    </span>
-  );
+  return <span className={cn('rounded px-2 py-0.5 text-xs', cfg.color)}>{cfg.label}</span>;
 }
 
 // Priority lanes visualization
@@ -388,7 +398,7 @@ function LanesView({ lanes }: { lanes: LaneVisualization[] }) {
           />
           <span className="text-foreground flex-1">{lane.label}</span>
           {lane.pendingWork > 0 && (
-            <span className="rounded bg-muted px-1.5 py-0.5 text-muted-foreground">
+            <span className="bg-muted text-muted-foreground rounded px-1.5 py-0.5">
               {lane.pendingWork} pending
             </span>
           )}
@@ -422,7 +432,7 @@ function TimelineView({ events }: { events: FiberEvent[] }) {
   };
 
   return (
-    <div className="space-y-2 max-h-[120px] overflow-y-auto">
+    <div className="max-h-[120px] space-y-2 overflow-y-auto">
       {events.map((event) => (
         <motion.div
           key={event.id}
@@ -461,17 +471,25 @@ function WorkPhaseIndicator({ phase }: { phase: WorkPhase }) {
       <motion.div
         className={cn(
           'h-2 w-2 rounded-full',
-          phase === 'finished' ? 'bg-emerald-400' :
-          isActive ? 'bg-cyan-400' : 'bg-muted-foreground/50'
+          phase === 'finished'
+            ? 'bg-emerald-400'
+            : isActive
+              ? 'bg-cyan-400'
+              : 'bg-muted-foreground/50'
         )}
         animate={isActive ? { scale: [1, 1.2, 1] } : {}}
         transition={{ repeat: Infinity, duration: 1 }}
       />
-      <span className={cn(
-        'text-xs font-medium',
-        phase === 'finished' ? 'text-emerald-400' :
-        isActive ? 'text-cyan-400' : 'text-muted-foreground'
-      )}>
+      <span
+        className={cn(
+          'text-xs font-medium',
+          phase === 'finished'
+            ? 'text-emerald-400'
+            : isActive
+              ? 'text-cyan-400'
+              : 'text-muted-foreground'
+        )}
+      >
         {phaseLabels[phase]}
       </span>
     </div>
@@ -505,9 +523,7 @@ function OutputMessage({ message }: { message: FiberOutput }) {
       exit={{ opacity: 0 }}
       className="flex gap-2"
     >
-      <span className={cn('select-none', colors[message.type])}>
-        {icons[message.type]}
-      </span>
+      <span className={cn('select-none', colors[message.type])}>{icons[message.type]}</span>
       <span className="text-foreground/80">{message.message}</span>
     </motion.div>
   );

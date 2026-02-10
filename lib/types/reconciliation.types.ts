@@ -1,6 +1,6 @@
 /**
  * Types for Reconciliation visualization
- * 
+ *
  * This visualization shows how React's diffing algorithm compares
  * old and new Virtual DOM trees to determine the minimal set of
  * DOM operations needed.
@@ -18,14 +18,14 @@ export interface VDOMNode {
 }
 
 // Diff status for a node
-export type DiffStatus = 
-  | 'unchanged'    // Node is identical
-  | 'updated'      // Same type, props changed
-  | 'replaced'     // Different type, will be replaced
-  | 'added'        // New node
-  | 'removed'      // Node no longer exists
-  | 'reordered'    // Same node, different position
-  | 'comparing';   // Currently being compared
+export type DiffStatus =
+  | 'unchanged' // Node is identical
+  | 'updated' // Same type, props changed
+  | 'replaced' // Different type, will be replaced
+  | 'added' // New node
+  | 'removed' // Node no longer exists
+  | 'reordered' // Same node, different position
+  | 'comparing'; // Currently being compared
 
 // Result of comparing two nodes
 export interface DiffResult {
@@ -38,14 +38,14 @@ export interface DiffResult {
   isActive: boolean;
 }
 
-export type DiffAction = 
-  | 'none'         // No change needed
+export type DiffAction =
+  | 'none' // No change needed
   | 'update-props' // Update attributes only
-  | 'update-text'  // Update text content
-  | 'replace'      // Remove old, insert new
-  | 'insert'       // Insert new node
-  | 'remove'       // Remove node
-  | 'reorder';     // Move node to new position
+  | 'update-text' // Update text content
+  | 'replace' // Remove old, insert new
+  | 'insert' // Insert new node
+  | 'remove' // Remove node
+  | 'reorder'; // Move node to new position
 
 // Property change detail
 export interface PropChange {
@@ -58,7 +58,14 @@ export interface PropChange {
 // DOM operation to be performed
 export interface ReconciliationDOMOperation {
   id: string;
-  type: 'createElement' | 'updateAttribute' | 'removeAttribute' | 'insertChild' | 'removeChild' | 'replaceChild' | 'updateText';
+  type:
+    | 'createElement'
+    | 'updateAttribute'
+    | 'removeAttribute'
+    | 'insertChild'
+    | 'removeChild'
+    | 'replaceChild'
+    | 'updateText';
   target: string;
   details: string;
   isExecuted: boolean;
@@ -99,48 +106,48 @@ export interface ReconciliationOutput {
 }
 
 // Reconciliation phase
-export type ReconciliationPhase = 
+export type ReconciliationPhase =
   | 'idle'
-  | 'start'           // Beginning comparison
-  | 'compare-root'    // Comparing root elements
-  | 'compare-props'   // Comparing props
-  | 'compare-children'// Comparing children recursively
-  | 'key-matching'    // Key-based list diffing
-  | 'generate-ops'    // Generating DOM operations
-  | 'complete';       // Reconciliation done
+  | 'start' // Beginning comparison
+  | 'compare-root' // Comparing root elements
+  | 'compare-props' // Comparing props
+  | 'compare-children' // Comparing children recursively
+  | 'key-matching' // Key-based list diffing
+  | 'generate-ops' // Generating DOM operations
+  | 'complete'; // Reconciliation done
 
 // The main state for the visualization
 export interface ReconciliationState {
   // Old Virtual DOM tree
   oldTree: VDOMNode | null;
-  
+
   // New Virtual DOM tree
   newTree: VDOMNode | null;
-  
+
   // Results of diffing
   diffResults: DiffResult[];
-  
+
   // Current comparison path
   currentComparison: string | null;
-  
+
   // DOM operations queue
   domOperations: ReconciliationDOMOperation[];
-  
+
   // List reconciliation info (for key-based diffing)
   listReconciliation: ListReconciliation | null;
-  
+
   // Current phase
   phase: ReconciliationPhase;
-  
+
   // Comparison steps for visualization
   comparisonSteps: ComparisonStep[];
-  
+
   // Console output
   output: ReconciliationOutput[];
-  
+
   // Active panel
   activePanel: 'trees' | 'diff' | 'operations' | 'keys';
-  
+
   // Show connection lines between matching nodes
   showConnections: boolean;
 }
