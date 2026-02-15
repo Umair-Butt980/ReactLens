@@ -185,6 +185,295 @@ const springTransition: Transition = {
 
 ---
 
+## Next.js Types
+
+### File-based Routing Types
+
+```typescript
+// lib/types/file-routing.types.ts
+
+interface FileNode {
+  id: string;
+  name: string;
+  type: 'file' | 'folder';
+  children?: FileNode[];
+  isSpecial?: boolean; // layout.tsx, loading.tsx, error.tsx, etc.
+  color?: string;
+}
+
+interface BrowserBar {
+  url: string;
+  isLoading: boolean;
+}
+
+interface RouteSegment {
+  id: string;
+  segment: string;
+  isDynamic: boolean; // [slug], [id], etc.
+  isGroup: boolean; // (marketing), (shop), etc.
+}
+
+interface LayoutWrapper {
+  id: string;
+  name: string;
+  depth: number;
+  isActive: boolean;
+  color: string;
+}
+
+interface FileRoutingState {
+  fileTree: FileNode[];
+  browserUrl: BrowserBar;
+  activeRoute: string;
+  routeSegments: RouteSegment[];
+  layoutWrappers: LayoutWrapper[];
+  highlightedFile: string;
+}
+
+interface FileRoutingStep {
+  id: string;
+  title: string;
+  explanation: string;
+  highlightedLines: number[];
+  state: FileRoutingState;
+  duration: number;
+}
+```
+
+---
+
+### Server vs Client Components Types
+
+```typescript
+// lib/types/server-client-components.types.ts
+
+interface ComponentNode {
+  id: string;
+  name: string;
+  type: 'server' | 'client';
+  children?: string[];
+  props?: string[];
+  hasDirective?: boolean; // 'use client'
+  color: string;
+}
+
+interface DataFlowArrow {
+  id: string;
+  from: string;
+  to: string;
+  label: string;
+  type: 'props' | 'children' | 'serialized';
+}
+
+interface BoundaryLine {
+  visible: boolean;
+  label: string;
+}
+
+interface RenderTimelineEntry {
+  id: string;
+  phase: string;
+  description: string;
+  isActive: boolean;
+}
+
+interface ServerClientState {
+  components: ComponentNode[];
+  dataFlowArrows: DataFlowArrow[];
+  boundaryLine: BoundaryLine;
+  renderTimeline: RenderTimelineEntry[];
+  currentPhase: 'server-render' | 'serialize' | 'client-hydrate' | 'interactive' | 'overview';
+}
+
+interface ServerClientStep {
+  id: string;
+  title: string;
+  explanation: string;
+  highlightedLines: number[];
+  state: ServerClientState;
+  duration: number;
+}
+```
+
+---
+
+### Rendering Strategies Types
+
+```typescript
+// lib/types/rendering-strategies.types.ts
+
+interface TimelinePhase {
+  id: string;
+  label: string;
+  description: string;
+  timing: 'build' | 'request' | 'revalidate';
+  isActive: boolean;
+  color: string;
+}
+
+interface CacheStatus {
+  isCached: boolean;
+  isStale: boolean;
+  ttl?: number; // seconds
+  lastRevalidated?: string;
+}
+
+interface StrategyComparison {
+  strategy: 'ssg' | 'ssr' | 'isr';
+  label: string;
+  pros: string[];
+  cons: string[];
+  bestFor: string;
+}
+
+interface RequestFlowStep {
+  id: string;
+  label: string;
+  type: 'client' | 'cdn' | 'server' | 'database';
+  isActive: boolean;
+}
+
+interface RenderingStrategiesState {
+  timelinePhases: TimelinePhase[];
+  cacheStatus: CacheStatus;
+  strategyComparison: StrategyComparison[];
+  requestFlow: RequestFlowStep[];
+  activeStrategy: 'ssg' | 'ssr' | 'isr' | 'overview';
+  currentPhase: string;
+}
+
+interface RenderingStrategiesStep {
+  id: string;
+  title: string;
+  explanation: string;
+  highlightedLines: number[];
+  state: RenderingStrategiesState;
+  duration: number;
+}
+```
+
+---
+
+### Data Fetching Types
+
+```typescript
+// lib/types/data-fetching.types.ts
+
+interface FetchRequest {
+  id: string;
+  url: string;
+  status: 'pending' | 'loading' | 'success' | 'error';
+  cacheStrategy: 'force-cache' | 'no-store' | 'revalidate';
+  data?: string;
+}
+
+interface FetchComponent {
+  id: string;
+  name: string;
+  isAsync: boolean;
+  fetchRequests: string[]; // references to FetchRequest ids
+  status: 'waiting' | 'fetching' | 'rendered' | 'streaming';
+}
+
+interface WaterfallItem {
+  id: string;
+  label: string;
+  startTime: number;
+  endTime: number;
+  color: string;
+  isParallel: boolean;
+}
+
+interface SuspenseBoundary {
+  id: string;
+  fallback: string; // loading UI description
+  isResolved: boolean;
+  children: string[]; // component ids
+}
+
+interface DataFetchingState {
+  fetchRequests: FetchRequest[];
+  components: FetchComponent[];
+  waterfallItems: WaterfallItem[];
+  suspenseBoundaries: SuspenseBoundary[];
+  currentPhase: 'setup' | 'fetching' | 'streaming' | 'complete' | 'overview';
+  showDeduplication: boolean;
+}
+
+interface DataFetchingStep {
+  id: string;
+  title: string;
+  explanation: string;
+  highlightedLines: number[];
+  state: DataFetchingState;
+  duration: number;
+}
+```
+
+---
+
+### Middleware Types
+
+```typescript
+// lib/types/middleware.types.ts
+
+interface MiddlewareRequest {
+  id: string;
+  method: string;
+  url: string;
+  headers: Record<string, string>;
+  cookies: Record<string, string>;
+}
+
+interface MiddlewarePipeline {
+  steps: string[];
+  currentStep: number;
+  result: 'next' | 'redirect' | 'rewrite' | 'pending';
+}
+
+interface MatcherPattern {
+  id: string;
+  pattern: string;
+  isMatched: boolean;
+  description: string;
+}
+
+interface ResponseModification {
+  id: string;
+  type: 'header' | 'cookie' | 'redirect' | 'rewrite';
+  key: string;
+  value: string;
+}
+
+interface FlowNode {
+  id: string;
+  label: string;
+  type: 'request' | 'matcher' | 'middleware' | 'response' | 'destination';
+  isActive: boolean;
+  color: string;
+}
+
+interface MiddlewareState {
+  request: MiddlewareRequest;
+  pipeline: MiddlewarePipeline;
+  matchers: MatcherPattern[];
+  responseModifications: ResponseModification[];
+  flowNodes: FlowNode[];
+  currentPhase: 'incoming' | 'matching' | 'executing' | 'response' | 'overview';
+}
+
+interface MiddlewareStep {
+  id: string;
+  title: string;
+  explanation: string;
+  highlightedLines: number[];
+  state: MiddlewareState;
+  duration: number;
+}
+```
+
+---
+
 ## Utility Types
 
 ```typescript

@@ -30,19 +30,22 @@ ReactLens is organized into three main areas:
 ### 1. Pages (`app/`)
 
 - Landing page and section overviews
-- Individual concept visualization pages
+- Individual concept visualization pages across three sections:
+  - **JavaScript** - Event Loop, Call Stack, Closures, Hoisting, and more
+  - **React** - Hooks, Lifecycle, Reconciliation, Fiber, and more
+  - **Next.js** - File-based Routing, Server/Client Components, Rendering Strategies, Data Fetching, Middleware
 - Each concept page follows the same three-section layout
 
 ### 2. Components (`components/`)
 
 - **Layout components** - Reusable page structure components
-- **Visualizations** - Animated concept visualizations
+- **Visualizations** - Animated concept visualizations organized by category (`javascript/`, `react/`, `nextjs/`)
 - **UI** - shadcn/ui base components
 
 ### 3. Library (`lib/`)
 
-- **Types** - TypeScript type definitions
-- **Data** - Topic metadata and step-by-step content
+- **Types** - TypeScript type definitions (per concept)
+- **Data** - Topic metadata and step-by-step content (per concept)
 - **Constants** - Theme colors and configuration
 - **Utils** - Helper functions
 

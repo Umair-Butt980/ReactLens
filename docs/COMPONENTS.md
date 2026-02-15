@@ -210,6 +210,157 @@ interface EventLoopState {
 
 ---
 
+## Next.js Visualization Components
+
+### FileRoutingVisual
+
+Animated folder tree to route mapping visualization showing how the Next.js App Router maps file system structure to URL routes.
+
+**Location:** `components/visualizations/nextjs/file-routing-visual.tsx`
+
+**Props:**
+
+```typescript
+interface FileRoutingVisualProps {
+  state: FileRoutingState;
+  className?: string;
+}
+```
+
+**State Structure:**
+
+```typescript
+interface FileRoutingState {
+  fileTree: FileNode[];
+  browserUrl: BrowserBar;
+  activeRoute: string;
+  routeSegments: RouteSegment[];
+  layoutWrappers: LayoutWrapper[];
+  highlightedFile: string;
+}
+```
+
+---
+
+### ServerClientComponentsVisual
+
+Component tree visualization showing the `'use client'` boundary, distinguishing server components from client components and illustrating their rendering pipeline.
+
+**Location:** `components/visualizations/nextjs/server-client-components-visual.tsx`
+
+**Props:**
+
+```typescript
+interface ServerClientComponentsVisualProps {
+  state: ServerClientState;
+  className?: string;
+}
+```
+
+**State Structure:**
+
+```typescript
+interface ServerClientState {
+  components: ComponentNode[];
+  dataFlowArrows: DataFlowArrow[];
+  boundaryLine: BoundaryLine;
+  renderTimeline: RenderTimelineEntry[];
+  currentPhase: 'server-render' | 'serialize' | 'client-hydrate' | 'interactive' | 'overview';
+}
+```
+
+---
+
+### RenderingStrategiesVisual
+
+Timeline and flow diagram visualization for SSR, SSG, and ISR rendering strategies, showing how pages are built and served at different phases.
+
+**Location:** `components/visualizations/nextjs/rendering-strategies-visual.tsx`
+
+**Props:**
+
+```typescript
+interface RenderingStrategiesVisualProps {
+  state: RenderingStrategiesState;
+  className?: string;
+}
+```
+
+**State Structure:**
+
+```typescript
+interface RenderingStrategiesState {
+  timelinePhases: TimelinePhase[];
+  cacheStatus: CacheStatus;
+  strategyComparison: StrategyComparison[];
+  requestFlow: RequestFlowStep[];
+  activeStrategy: 'ssg' | 'ssr' | 'isr' | 'overview';
+  currentPhase: string;
+}
+```
+
+---
+
+### DataFetchingVisual
+
+Animated visualization of Next.js data fetching patterns including async Server Components, parallel fetching, Suspense streaming, and request deduplication.
+
+**Location:** `components/visualizations/nextjs/data-fetching-visual.tsx`
+
+**Props:**
+
+```typescript
+interface DataFetchingVisualProps {
+  state: DataFetchingState;
+  className?: string;
+}
+```
+
+**State Structure:**
+
+```typescript
+interface DataFetchingState {
+  fetchRequests: FetchRequest[];
+  components: FetchComponent[];
+  waterfallItems: WaterfallItem[];
+  suspenseBoundaries: SuspenseBoundary[];
+  currentPhase: 'setup' | 'fetching' | 'streaming' | 'complete' | 'overview';
+  showDeduplication: boolean;
+}
+```
+
+---
+
+### MiddlewareVisual
+
+Request flow visualization for Next.js Middleware, showing how requests are intercepted, checked against matchers, and then redirected, rewritten, or passed through with modified headers/cookies.
+
+**Location:** `components/visualizations/nextjs/middleware-visual.tsx`
+
+**Props:**
+
+```typescript
+interface MiddlewareVisualProps {
+  state: MiddlewareState;
+  className?: string;
+}
+```
+
+**State Structure:**
+
+```typescript
+interface MiddlewareState {
+  request: MiddlewareRequest;
+  pipeline: MiddlewarePipeline;
+  matchers: MatcherPattern[];
+  responseModifications: ResponseModification[];
+  flowNodes: FlowNode[];
+  currentPhase: 'incoming' | 'matching' | 'executing' | 'response' | 'overview';
+}
+```
+
+---
+
 ## UI Components
 
 The project uses shadcn/ui components. Add new components with:

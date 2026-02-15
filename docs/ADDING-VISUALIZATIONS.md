@@ -91,7 +91,11 @@ export const closureKeyTakeaways = [
 
 ## Step 3: Create Visualization Component
 
-Create the visual component in `components/visualizations/javascript/`.
+Create the visual component in the appropriate category folder:
+
+- `components/visualizations/javascript/` for JS concepts
+- `components/visualizations/react/` for React concepts
+- `components/visualizations/nextjs/` for Next.js concepts
 
 **Example: `components/visualizations/javascript/closure-visual.tsx`**
 
@@ -146,15 +150,24 @@ export function ClosureVisual({ state, className }: ClosureVisualProps) {
 }
 ```
 
-Export from `components/visualizations/javascript/index.ts`:
+Export from the category's `index.ts` barrel file:
 
 ```typescript
+// components/visualizations/javascript/index.ts
 export { ClosureVisual } from './closure-visual';
+
+// components/visualizations/nextjs/index.ts (for Next.js concepts)
+export { FileRoutingVisual } from './file-routing-visual';
 ```
 
 ## Step 4: Create the Page
 
-Create the page in `app/javascript/closures/page.tsx`.
+Create the page in `app/[category]/[concept]/page.tsx`.
+
+**Important:** All page components must include proper error handling:
+- **Try-catch in auto-play `useEffect`** to prevent timer errors from crashing the page
+- **Try-catch in callbacks** for playback handlers
+- **Guard clause** to check `currentStepData` before rendering
 
 ```typescript
 'use client';
@@ -185,23 +198,52 @@ export default function ClosuresPage() {
   const totalSteps = closureSteps.length;
   const currentStepData = closureSteps[currentStep - 1];
 
-  // Auto-play logic
+  // Auto-play logic with error handling
   useEffect(() => {
     if (!isPlaying) return;
 
-    const duration = currentStepData.duration / speed;
-    const timer = setTimeout(() => {
+    try {
+      const duration = currentStepData?.duration ?? 3000;
+      const timer = setTimeout(() => {
+        if (currentStep < totalSteps) {
+          setCurrentStep((prev) => prev + 1);
+        } else {
+          setIsPlaying(false);
+        }
+      }, duration / speed);
+
+      return () => clearTimeout(timer);
+    } catch (error) {
+      console.error('Auto-play error:', error);
+      setIsPlaying(false);
+    }
+  }, [isPlaying, currentStep, totalSteps, currentStepData?.duration, speed]);
+
+  // Callback handlers with try-catch
+  const handleNext = useCallback(() => {
+    try {
       if (currentStep < totalSteps) {
         setCurrentStep((prev) => prev + 1);
-      } else {
-        setIsPlaying(false);
       }
-    }, duration);
+    } catch (error) {
+      console.error('Navigation error:', error);
+    }
+  }, [currentStep, totalSteps]);
 
-    return () => clearTimeout(timer);
-  }, [isPlaying, currentStep, totalSteps, currentStepData.duration, speed]);
+  const handlePrev = useCallback(() => {
+    try {
+      if (currentStep > 1) {
+        setCurrentStep((prev) => prev - 1);
+      }
+    } catch (error) {
+      console.error('Navigation error:', error);
+    }
+  }, [currentStep]);
 
-  // ... handlers (copy from event-loop page)
+  // ... other handlers follow the same pattern
+
+  // Guard clause for invalid step data
+  if (!currentStepData) return null;
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -210,6 +252,8 @@ export default function ClosuresPage() {
         currentStep={currentStep}
         totalSteps={totalSteps}
         backHref="/javascript"
+        prevTopic={{ title: 'Previous Topic', href: '/javascript/previous' }}
+        nextTopic={{ title: 'Next Topic', href: '/javascript/next' }}
       />
 
       <div className="flex-1 overflow-hidden">
@@ -247,6 +291,8 @@ export default function ClosuresPage() {
           />
         }
       />
+
+      <KeyTakeaways takeaways={closureKeyTakeaways} />
     </div>
   );
 }
@@ -254,7 +300,11 @@ export default function ClosuresPage() {
 
 ## Step 5: Update Topic Data
 
-If not already present, add the topic to `lib/data/javascript-topics.ts`:
+If not already present, add the topic to the appropriate topic data file:
+
+- `lib/data/javascript-topics.ts` for JS concepts
+- `lib/data/react-topics.ts` for React concepts
+- `lib/data/nextjs-topics.ts` for Next.js concepts
 
 ```typescript
 {
@@ -262,21 +312,53 @@ If not already present, add the topic to `lib/data/javascript-topics.ts`:
   title: 'Closures & Scope',
   slug: 'closures',
   description: 'Master closures and understand lexical scoping...',
-  category: 'javascript',
+  category: 'javascript',   // or 'react' | 'nextjs'
   difficulty: 'intermediate',
   estimatedTime: 12,
-  icon: 'Box',
+  icon: 'Box',              // Must be mapped in topic-card.tsx iconMap
   color: '#EC4899',
 }
 ```
 
+**Note:** If you use a new Lucide icon, make sure to import it and add it to the `iconMap` in `components/layout/topic-card.tsx`.
+
+## Step 6: Update Barrel Exports
+
+Add exports to the barrel index files:
+
+```typescript
+// lib/types/index.ts
+export * from './your-concept.types';
+
+// lib/data/index.ts
+export * from './your-concept-steps';
+
+// components/visualizations/[category]/index.ts
+export { YourConceptVisual } from './your-concept-visual';
+```
+
+## Step 7: Update Navigation Links
+
+Update the `prevTopic` and `nextTopic` props in `ConceptHeader` for:
+- The **new** concept page
+- The **previous** concept page (to link forward to yours)
+- The **next** concept page (to link backward to yours, if applicable)
+
+This ensures a coherent navigation flow across all concepts within a section.
+
 ## Checklist
 
-- [ ] Types defined in `lib/types/`
-- [ ] Step data created in `lib/data/`
-- [ ] Visualization component in `components/visualizations/`
+- [ ] Types defined in `lib/types/[concept].types.ts`
+- [ ] Types exported from `lib/types/index.ts`
+- [ ] Step data created in `lib/data/[concept]-steps.ts`
+- [ ] Step data exported from `lib/data/index.ts`
+- [ ] Visualization component in `components/visualizations/[category]/`
+- [ ] Visualization exported from category `index.ts` and root `index.ts`
 - [ ] Page created in `app/[category]/[concept]/page.tsx`
-- [ ] Exports updated in index files
+- [ ] Error handling: try-catch in useEffect and callbacks
+- [ ] Error handling: guard clause for missing step data
 - [ ] Topic added to topic data (if new)
+- [ ] Icon mapped in `topic-card.tsx` (if new icon used)
+- [ ] Navigation links updated (prevTopic/nextTopic)
 - [ ] Tested with all animation steps
 - [ ] Responsive layout verified

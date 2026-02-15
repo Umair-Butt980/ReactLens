@@ -2,7 +2,7 @@
 
 **Visual Learning Platform for JavaScript, React & Next.js**
 
-ReactLens is an educational platform that teaches programming concepts through beautiful, step-by-step animated visualizations. Perfect for visual learners who want to truly understand how JavaScript and React work under the hood.
+ReactLens is an educational platform that teaches programming concepts through beautiful, step-by-step animated visualizations. Perfect for visual learners who want to truly understand how JavaScript, React, and Next.js work under the hood.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16.1.4-black?style=flat-square&logo=next.js)
 ![React](https://img.shields.io/badge/React-19-blue?style=flat-square&logo=react)
@@ -22,23 +22,32 @@ ReactLens is an educational platform that teaches programming concepts through b
 
 ### Phase 1: JavaScript Fundamentals
 
-- ✅ Event Loop & Call Stack
-- 🔜 Closures & Scope
-- 🔜 Hoisting
-- 🔜 Prototypes & `this`
-- 🔜 Async & Promises
-- 🔜 Memory Management
-- 🔜 DOM Basics
-- 🔜 Virtual DOM
+- ✅ Event Loop
+- ✅ Call Stack
+- ✅ Closures & Scope
+- ✅ Hoisting
+- ✅ Prototypes & `this`
+- ✅ Async & Promises
+- ✅ Memory Management
+- ✅ DOM Basics
+- ✅ Virtual DOM
 
 ### Phase 2: React Core Concepts
 
-- 🔜 JSX & Components
-- 🔜 Props & State
-- 🔜 React Hooks
-- 🔜 Component Lifecycle
-- 🔜 Reconciliation
-- 🔜 React Fiber
+- ✅ JSX & Components
+- ✅ Props & State
+- ✅ React Hooks
+- ✅ Component Lifecycle
+- ✅ Reconciliation
+- ✅ React Fiber
+
+### Phase 3: Next.js Key Concepts
+
+- ✅ File-based Routing (App Router)
+- ✅ Server vs Client Components
+- ✅ Rendering Strategies (SSR, SSG, ISR)
+- ✅ Data Fetching (loading.tsx, error.tsx, Suspense)
+- ✅ Middleware (auth, redirects, rewrites)
 
 ## 🚀 Getting Started
 
@@ -100,15 +109,20 @@ npm run dev
 ```
 reactlens/
 ├── app/                    # Next.js App Router pages
-│   ├── javascript/         # JavaScript concept pages
-│   └── react/              # React concept pages
+│   ├── javascript/         # JavaScript concept pages (9 topics)
+│   ├── react/              # React concept pages (6 topics)
+│   └── nextjs/             # Next.js concept pages (5 topics)
 ├── components/
 │   ├── layout/             # Layout components
 │   ├── visualizations/     # Visualization components
+│   │   ├── javascript/     # JS visualization components
+│   │   ├── react/          # React visualization components
+│   │   └── nextjs/         # Next.js visualization components
 │   └── ui/                 # shadcn/ui components
 ├── lib/
 │   ├── types/              # TypeScript types
 │   ├── data/               # Topic and step data
+│   ├── hooks/              # Custom React hooks
 │   └── constants/          # Theme colors, etc.
 └── docs/                   # Documentation
 ```
