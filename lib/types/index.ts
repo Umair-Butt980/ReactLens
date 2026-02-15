@@ -23,3 +23,5 @@ export * from './fiber.types';
 export * from './file-routing.types';
 export * from './server-client-components.types';
 export * from './rendering-strategies.types';
+export * from './data-fetching.types';
+export * from './middleware.types';

@@ -44,6 +44,32 @@ export const nextjsTopics: Topic[] = [
     icon: 'Globe',
     color: '#06B6D4',
   },
+  {
+    id: 'data-fetching',
+    title: 'Data Fetching',
+    slug: 'data-fetching',
+    description:
+      'Master data fetching in Server Components with loading.tsx, error.tsx, parallel fetching, and streaming.',
+    category: 'nextjs',
+    difficulty: 'intermediate',
+    estimatedTime: 15,
+    prerequisites: ['rendering-strategies'],
+    icon: 'Database',
+    color: '#F97316',
+  },
+  {
+    id: 'middleware',
+    title: 'Middleware',
+    slug: 'middleware',
+    description:
+      'Learn how to intercept requests with middleware for auth, redirects, rewrites, and header manipulation.',
+    category: 'nextjs',
+    difficulty: 'intermediate',
+    estimatedTime: 12,
+    prerequisites: ['data-fetching'],
+    icon: 'Shield',
+    color: '#10B981',
+  },
 ];
 
 export const nextjsCategory: TopicCategory = {

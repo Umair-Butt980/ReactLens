@@ -11,21 +11,21 @@ import {
 } from '@/components/layout';
 import { CodePanel } from '@/components/layout/code-panel';
 import { VisualizationErrorBoundary } from '@/components/error-boundary';
-import { RenderingStrategiesVisual } from '@/components/visualizations/nextjs';
+import { MiddlewareVisual } from '@/components/visualizations/nextjs';
 import {
-  renderingStrategiesSteps,
-  renderingStrategiesCode,
-  renderingStrategiesKeyTakeaways,
+  middlewareSteps,
+  middlewareCode,
+  middlewareKeyTakeaways,
 } from '@/lib/data';
 import type { PlaybackSpeed } from '@/lib/types';
 
-export default function RenderingStrategiesPage() {
+export default function MiddlewarePage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState<PlaybackSpeed>(1);
 
-  const totalSteps = renderingStrategiesSteps.length;
-  const currentStepData = renderingStrategiesSteps[currentStep - 1];
+  const totalSteps = middlewareSteps.length;
+  const currentStepData = middlewareSteps[currentStep - 1];
 
   // Auto-play logic with error handling
   useEffect(() => {
@@ -102,30 +102,26 @@ export default function RenderingStrategiesPage() {
     <div className="bg-background flex min-h-screen flex-col">
       {/* Header */}
       <ConceptHeader
-        title="Rendering Strategies"
+        title="Middleware"
         currentStep={currentStep}
         totalSteps={totalSteps}
         backHref="/nextjs"
-        prevTopic={{
-          title: 'Server vs Client Components',
-          href: '/nextjs/server-client-components',
-        }}
-        nextTopic={{ title: 'Data Fetching', href: '/nextjs/data-fetching' }}
+        prevTopic={{ title: 'Data Fetching', href: '/nextjs/data-fetching' }}
       />
 
       {/* Main Content - Split View */}
       <div className="flex-1 overflow-hidden">
         <SplitView
           animationPanel={
-            <AnimationPanelWrapper title="SSG / SSR / ISR">
-              <VisualizationErrorBoundary visualizationName="Rendering Strategies">
-                <RenderingStrategiesVisual state={currentStepData.state} />
+            <AnimationPanelWrapper title="Request Middleware">
+              <VisualizationErrorBoundary visualizationName="Middleware">
+                <MiddlewareVisual state={currentStepData.state} />
               </VisualizationErrorBoundary>
             </AnimationPanelWrapper>
           }
           codePanel={
             <CodePanel
-              code={renderingStrategiesCode}
+              code={middlewareCode}
               language="tsx"
               highlightedLines={currentStepData.highlightedLines}
               showLineNumbers
@@ -156,10 +152,7 @@ export default function RenderingStrategiesPage() {
 
             {/* Show key takeaways on the last step */}
             {currentStep === totalSteps && (
-              <KeyTakeaways
-                takeaways={renderingStrategiesKeyTakeaways}
-                className="w-full max-w-xl"
-              />
+              <KeyTakeaways takeaways={middlewareKeyTakeaways} className="w-full max-w-xl" />
             )}
           </div>
         }

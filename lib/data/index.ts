@@ -23,3 +23,5 @@ export * from './nextjs-topics';
 export * from './file-routing-steps';
 export * from './server-client-components-steps';
 export * from './rendering-strategies-steps';
+export * from './data-fetching-steps';
+export * from './middleware-steps';

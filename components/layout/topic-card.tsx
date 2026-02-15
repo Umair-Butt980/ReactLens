@@ -21,6 +21,8 @@ import {
   FolderTree,
   Server,
   Globe,
+  Database,
+  Shield,
   LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -47,6 +49,8 @@ const iconMap: Record<string, LucideIcon> = {
   FolderTree,
   Server,
   Globe,
+  Database,
+  Shield,
 };
 
 interface TopicCardProps {
